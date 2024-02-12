@@ -76,7 +76,7 @@ tonyg-rfc3339==0.1
 typing-extensions==4.2.0
 urllib3==1.26.9
 uvicorn[standard]==0.17.6
-uvloop==0.16.0
+# uvloop==0.16.0
 watchgod==0.8.2
 websockets==10.3
 yarl==1.7.2; python_version >= '3.6'
