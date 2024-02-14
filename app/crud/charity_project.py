@@ -10,11 +10,14 @@ class CRUDCharityProject(CRUDBase):
             self,
             session: AsyncSession
     ) -> list[CharityProject]:
-        query = select(CharityProject.name,
-                       CharityProject.description,
-                       (func.julianday(CharityProject.close_date) -
-                        func.julianday(CharityProject.create_date)).label('collection_time')).where(
-            CharityProject.fully_invested.is_(True)).order_by('collection_time')
+        query = select(
+            CharityProject.name,
+            CharityProject.description,
+            (func.julianday(CharityProject.close_date) -
+             func.julianday(CharityProject.create_date)).label(
+                 'collection_time')).where(
+            CharityProject.fully_invested.is_(True)).order_by(
+                'collection_time')
         closed_projects = await session.execute(query)
         return closed_projects.all()
 

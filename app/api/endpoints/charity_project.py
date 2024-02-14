@@ -2,7 +2,8 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.validators import (check_name_duplicate,
-                                check_project_before_delete, check_project_before_edit)
+                                check_project_before_delete,
+                                check_project_before_edit)
 from app.core.db import get_async_session
 from app.core.user import current_superuser
 from app.crud.charity_project import charity_project_crud

@@ -2,7 +2,8 @@ from datetime import datetime, timedelta
 
 from aiogoogle import Aiogoogle
 
-from app.core.config import settings
+from app.core.config import (settings, DEFAULT_SHEET_ID,
+                             DEFAULT_ROW_COUNT, DEFAULT_COLUMN_COUNT)
 
 FORMAT = "%Y/%m/%d %H:%M:%S"
 
@@ -13,11 +14,16 @@ async def spreadsheets_create(wrapper_services: Aiogoogle) -> str:
     spreadsheet_body = {
         'properties': {'title': f'Отчёт на {now_date_time}',
                        'locale': 'ru_RU'},
-        'sheets': [{'properties': {'sheetType': 'GRID',
-                                   'sheetId': 0,
-                                   'title': 'Лист1',
-                                   'gridProperties': {'rowCount': 100,
-                                                      'columnCount': 11}}}]
+        'sheets': [
+            {'properties': {
+                'sheetType': 'GRID',
+                             'sheetId': DEFAULT_SHEET_ID,
+                             'title': 'Лист1',
+                             'gridProperties': {
+                                 'rowCount': DEFAULT_ROW_COUNT,
+                                 'columnCount': DEFAULT_COLUMN_COUNT}}
+             }
+        ]
     }
     response = await wrapper_services.as_service_account(
         service.spreadsheets.create(json=spreadsheet_body)
@@ -38,7 +44,7 @@ async def set_user_permissions(
         service.permissions.create(
             fileId=spreadsheetid,
             json=permissions_body,
-            fields="id"
+            fields='id'
         ))
 
 
@@ -55,8 +61,9 @@ async def spreadsheets_update_value(
         ['Название проекта', 'Время сбора', 'Описание']
     ]
     for project in projects:
-        new_row = [str(project.name), str(timedelta(days=project.collection_time)),
-                   str(project.description)]
+        new_row = [str(project.name), str(timedelta(
+            days=project.collection_time)),
+            str(project.description)]
         table_values.append(new_row)
     update_body = {
         'majorDimension': 'ROWS',
