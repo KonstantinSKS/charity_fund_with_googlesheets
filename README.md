@@ -65,7 +65,7 @@ EMAIL=<ваша почта на>@gmail.com
 (Далее необходимо ввести данные из JSON-файла с данными вашего сервисного аккаунта, предоставленные Google Cloud Platform.)
 ```
 TYPE=
-PROJECT_ID=inbound-dahlia-413421
+PROJECT_ID=
 PRIVATE_KEY_ID=
 PRIVATE_KEY=
 CLIENT_EMAIL=
